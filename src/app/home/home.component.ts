@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { NewsFetchService } from '../news-fetch.service';
 
 @Component({
   selector: 'app-home',
@@ -7,9 +8,15 @@ import { Component, OnInit } from '@angular/core';
 })
 export class HomeComponent implements OnInit {
 
-  constructor() { }
+  newsPost:any;
+
+  constructor(private postFetchService: NewsFetchService) { }
 
   ngOnInit(): void {
+    this.postFetchService.getNewsPosts().subscribe( (res:any) => {
+      this.newsPost = res;
+      console.log(this.newsPost)
+    })
   }
 
 }
