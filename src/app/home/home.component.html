@@ -20,6 +20,10 @@
                     <a href="">Url: {{post.url}}</a><br><br>
                     <!-- <a href="#" class="btn btn-primary">Go somewhere</a> -->
                     <button type="button" class="btn btn-danger" (click)="onDelete(post)">Delete Post</button>
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    <button type="button" class="btn btn-secondary" (click)="markRead(post)">Mark Read</button>
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    <button type="button" class="btn btn-secondary" (click)="markUnread(post)">Mark Unread</button>
                   </div>
                   <div class="card-footer text-muted">
                       Date Published: {{post.datePosted}}

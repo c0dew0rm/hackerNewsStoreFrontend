@@ -31,4 +31,12 @@ export class HomeComponent implements OnInit {
     });
   }
 
+  markRead(post:any) {
+    console.log("In mark read");
+  }
+
+  markUnread(post:any) {
+    console.log("In mark unread");
+  }
+
 }
