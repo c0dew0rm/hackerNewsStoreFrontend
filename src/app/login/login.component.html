@@ -1,0 +1,44 @@
+<section class="login-box">
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-md-6">
+                <div class="form-bg">
+                    <div *ngIf="!forgotToggle">
+                        <form id="login" class="form-group login_form" [formGroup]="portalLoginForm" (ngSubmit)="onLoginFormSubmit(portalLoginForm)">
+                            <div class="form-group">
+                                <label for="input-emailmob">Email / Mobile</label>
+                                <input type="text" formControlName="email" class="form-control" id="input-emailmob"
+                                    placeholder="Enter email or mobile" email>
+                            </div>
+                            <div class="form-group">
+                                <label for="input-password">Password</label>
+                                <input type="password" formControlName="password" class="form-control" id="input-password"
+                                    placeholder="Enter password">
+                                    <p (click)="forgotToggle = !forgotToggle" class="fp-link">Forgot password ?</p>
+                            </div>
+                            <div class="login-btn">
+                                <button type="submit" class="btn cust-btn">Login</button>
+                            </div>
+                        </form>
+                    </div>
+                    <div *ngIf="forgotToggle">
+                        <form class="form-group login_form" [formGroup]="forgotPasswordForm" (ngSubmit)="onForgotPasswordFormSubmit(forgotPasswordForm)">
+                            <div class="text-center">
+                                <h5>Forgot Password</h5>
+                            </div>
+                            <div class="form-group">
+                                <label for="input-emailmob">Email </label>
+                                <input type="text" formControlName="email" class="form-control" id="input-emailmob"
+                                    placeholder="Enter email" email>
+                            </div>
+                            <div class="login-btn">
+                                <button type="submit" class="btn cust-btn">Submit</button>
+                            </div>
+                            <p (click)="forgotToggle = !forgotToggle" class="fp-link">Back to Login</p>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>

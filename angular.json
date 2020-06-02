@@ -119,6 +119,10 @@
           }
         }
       }
-    }},
-  "defaultProject": "newsPostDash"
+    }
+  },
+  "defaultProject": "newsPostDash",
+  "cli": {
+    "analytics": false
+  }
 }
