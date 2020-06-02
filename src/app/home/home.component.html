@@ -4,7 +4,7 @@
             <h2>Click refresh button to update list -->></h2>
         </div>
         <div class="col-md-6 refresButtonContainer">
-            <button type="button" class="btn btn-primary">Refresh</button>
+            <button type="button" class="btn btn-primary" (click)="onRefresh()">Refresh</button>
         </div>
     </div>
 </div>
@@ -19,7 +19,7 @@
                     <h5 class="card-title">Authored By: {{post.author}}</h5>
                     <a href="">Url: {{post.url}}</a><br><br>
                     <!-- <a href="#" class="btn btn-primary">Go somewhere</a> -->
-                    <button type="button" class="btn btn-danger">Delete Post</button>
+                    <button type="button" class="btn btn-danger" (click)="onDelete(post)">Delete Post</button>
                   </div>
                   <div class="card-footer text-muted">
                       Date Published: {{post.datePosted}}

@@ -10,7 +10,11 @@ export class NewsFetchService {
   constructor(private http: HttpClient) { }
 
   getNewsPosts() {
-    console.log(Utils.getDefaultUrl());
-    return this.http.get(Utils.getDefaultUrl()+'restApis/fetchNews/')
+    // console.log(Utils.getDefaultUrl());
+    return this.http.get(Utils.getDefaultUrl()+'restApis/fetchNews/');
+  }
+
+  refreshFunction() {
+    return this.http.get(Utils.getDefaultUrl()+'newsPost/insertNews/');
   }
 }

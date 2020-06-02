@@ -15,8 +15,20 @@ export class HomeComponent implements OnInit {
   ngOnInit(): void {
     this.postFetchService.getNewsPosts().subscribe( (res:any) => {
       this.newsPost = res;
-      console.log(this.newsPost)
-    })
+    });
+  }
+
+  onDelete(post:any) {
+    console.log(post);
+  }
+
+  onRefresh() {
+    console.log("In refresh");
+    this.postFetchService.refreshFunction().subscribe( (res:any) => {
+      this.postFetchService.getNewsPosts().subscribe( (res:any)=>{
+        this.newsPost = res;
+      });
+    });
   }
 
 }
