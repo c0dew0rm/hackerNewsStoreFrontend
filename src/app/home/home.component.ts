@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { NewsFetchService } from '../news-fetch.service';
+import { AuthService } from '../auth.service';
 
 @Component({
   selector: 'app-home',
@@ -10,7 +11,7 @@ export class HomeComponent implements OnInit {
 
   newsPost:any;
 
-  constructor(private postFetchService: NewsFetchService) { }
+  constructor(private postFetchService: NewsFetchService, private authService: AuthService) { }
 
   ngOnInit(): void {
     this.postFetchService.getNewsPosts().subscribe( (res:any) => {
@@ -29,6 +30,9 @@ export class HomeComponent implements OnInit {
         this.newsPost = res;
       });
     });
+  }
+  onLogout() {
+    this.authService.signOut();
   }
 
   markRead(post:any) {

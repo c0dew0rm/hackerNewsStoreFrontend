@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormControl,  } from '@angular/forms';
 import { Router } from '@angular/router';
+import { AuthService } from '../auth.service';
 
 @Component({
   selector: 'app-login',
@@ -11,7 +12,7 @@ export class LoginComponent implements OnInit {
   portalLoginForm: FormGroup;
   forgotToggle = false;
   forgotPasswordForm: FormGroup;
-  constructor(private route: Router) { }
+  constructor(private route: Router, private authService: AuthService) { }
 
   ngOnInit(): void {
     this.initializePortalLoginForm();
@@ -29,14 +30,14 @@ export class LoginComponent implements OnInit {
   }
 
   onLoginFormSubmit(formValue: FormGroup ) {
-    localStorage.setItem('userEmail', formValue.value.email);
-    console.log(localStorage.getItem('userEmail'));
-    if(formValue.value.email==='rahul@transpacks.co' && formValue.value.password==='transpacks123') {
-      this.route.navigate(['home']);
-    }
-    else {
-      console.log("Invalid Credentials")
-    }
+    this.authService.signIn(formValue.value.email, formValue.value.password);
+    // localStorage.setItem('userEmail', formValue.value.email);
+    // if(formValue.value.email==='rahul@transpacks.co' && formValue.value.password==='transpacks123') {
+    //   this.route.navigate(['home']);
+    // }
+    // else {
+    //   console.log("Invalid Credentials")
+    // }
   }
 
   onForgotPasswordFormSubmit(formValue: FormGroup) {
