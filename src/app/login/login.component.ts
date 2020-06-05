@@ -29,6 +29,8 @@ export class LoginComponent implements OnInit {
   }
 
   onLoginFormSubmit(formValue: FormGroup ) {
+    localStorage.setItem('userEmail', formValue.value.email);
+    console.log(localStorage.getItem('userEmail'));
     if(formValue.value.email==='rahul@transpacks.co' && formValue.value.password==='transpacks123') {
       this.route.navigate(['home']);
     }
