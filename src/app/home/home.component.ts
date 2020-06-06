@@ -13,6 +13,7 @@ export class HomeComponent implements OnInit {
   alive:boolean = true;
   newsPost:any;
   deletedPostList:any;
+  readPostList:any;
 
   constructor(
     private postFetchService: NewsFetchService,
@@ -29,7 +30,8 @@ export class HomeComponent implements OnInit {
     this.postFetchService.getNewsPosts().subscribe( (res:any) => {
       this.newsPost = res;
     });
-    this.getDeletedList();
+    this.getDeletedPostsList();
+    this.getReadPostsList();
   }
 
   onDelete(post:any) {
@@ -50,17 +52,28 @@ export class HomeComponent implements OnInit {
   }
 
   markRead(post:any) {
-    console.log("In mark read");
+    this.postFilterService.addToReadList(post);
   }
 
   markUnread(post:any) {
     console.log("In mark unread");
   }
 
-  getDeletedList() {
+  getDeletedPostsList() {
+    this.alive = true;
     if(this.alive === true) {
       this.postFilterService.getDeletedPosts().pipe().subscribe( data => {
         this.deletedPostList = data;
+      });
+      this.alive=false;
+    }
+  }
+
+  getReadPostsList() {
+    this.alive = true;
+    if(this.alive === true) {
+      this.postFilterService.getReadPosts().pipe().subscribe( data => {
+        this.readPostList = data;
         // console.log(this.deletedPostList);
       });
       this.alive=false;
@@ -69,6 +82,10 @@ export class HomeComponent implements OnInit {
 
   checkIfDeleted(postId) {
     return this.deletedPostList.hasOwnProperty(postId) ? true : false;
+  }
+
+  checkIfRead(postId) {
+    return this.readPostList.hasOwnProperty(postId) ? 'aquamarine' : 'transparent';
   }
 
 }

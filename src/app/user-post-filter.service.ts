@@ -10,10 +10,9 @@ export class UserPostFilterService {
 
   constructor(private afs: AngularFirestore, private authService: AuthService) { }
 
-  addToDeleteList(post:any){
+  addToDeleteList(post:any) {
     let alive = true;
     let UserData: any;
-    console.log(post);
     let loggedInUser = localStorage.getItem('email');
     let res = this.afs.doc('/UsersInfo/Users/').snapshotChanges().pipe(map(action=>{
       const data = action.payload.data();
@@ -32,12 +31,41 @@ export class UserPostFilterService {
     });
   }
 
+  addToReadList(post:any) {
+    let alive = true;
+    let UserData: any;
+    let loggedInUser = localStorage.getItem('email');
+    let res = this.afs.doc('/UsersInfo/Users/').snapshotChanges().pipe(map(action=>{
+      const data = action.payload.data();
+      return data;
+    }));
+    res.pipe().subscribe(data=>{
+      console.log(data);
+      data[loggedInUser]['readPosts'][post.postId]=true;
+      UserData = data
+
+      if(alive === true) {
+        this.afs.collection('UsersInfo').doc('Users').set(UserData,{merge:true});
+        alive = false;
+        window.alert("Post Read Sucessfully!");
+      }
+    });
+  }
+
   getDeletedPosts() {
     let loggedInUser = localStorage.getItem('email');
     return this.afs.doc('/UsersInfo/Users/').snapshotChanges().pipe(map(action=>{
       const data = action.payload.data();
       return data[loggedInUser]['deletedPosts'];
     }));
+  }
+
+  getReadPosts() {
+    let loggedInUser = localStorage.getItem('email');
+    return this.afs.doc('/UsersInfo/Users/').snapshotChanges().pipe(map(action=>{
+      const data = action.payload.data();
+      return data[loggedInUser]['readPosts'];
+    })); 
   }
 
 }

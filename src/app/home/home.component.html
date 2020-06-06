@@ -16,7 +16,7 @@
                 <div class="card-header">
                     <b>Title: </b>{{post.title}} 
                   </div>
-                  <div class="card-body">
+                  <div class="card-body" [ngStyle]="{backgroundColor: checkIfRead(post.postId)}">
                     <h5 class="card-title">Authored By: {{post.author}}</h5>
                     <a href="">Url: {{post.url}}</a><br><br>
                     <!-- <a href="#" class="btn btn-primary">Go somewhere</a> -->
