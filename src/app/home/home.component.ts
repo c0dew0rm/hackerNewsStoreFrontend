@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { NewsFetchService } from '../news-fetch.service';
 import { AuthService } from '../auth.service';
 import { Router } from '@angular/router';
+import { UserPostFilterService } from '../user-post-filter.service';
 
 @Component({
   selector: 'app-home',
@@ -12,7 +13,7 @@ export class HomeComponent implements OnInit {
 
   newsPost:any;
 
-  constructor(private postFetchService: NewsFetchService, private authService: AuthService, private route: Router) {
+  constructor(private postFetchService: NewsFetchService, private authService: AuthService, private route: Router, private postFilterService: UserPostFilterService) {
     if (!this.authService.loggedIn()){
       this.authService.signOut();
     }
@@ -25,7 +26,7 @@ export class HomeComponent implements OnInit {
   }
 
   onDelete(post:any) {
-    console.log(post);
+    this.postFilterService.addToDeleteList(post);
   }
 
   onRefresh() {
