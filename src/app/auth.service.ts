@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
-import { AngularFirestore } from '@angular/fire/firestore';
+import { AngularFirestore, validateEventsArray } from '@angular/fire/firestore';
 import { AngularFireAuth } from '@angular/fire/auth';
 @Injectable({
   providedIn: 'root'
@@ -15,7 +15,7 @@ export class AuthService {
         localStorage.setItem('email', email);
          this.router.navigate(['home']);
       }).catch((error) => {
-        window.alert(error.message)
+        window.alert(error.message);
       })
   }
 
@@ -28,6 +28,17 @@ export class AuthService {
 
   loggedIn(): boolean {
     return (localStorage.getItem('email') !== null);
+  }
+
+  signUp(email, password) {
+    return this.afAuth.createUserWithEmailAndPassword(email, password).then(
+      value => {
+        this.router.navigate(['']);
+        window.alert("Account created Sucessfully!");
+      }
+    ).catch(error => {
+      window.alert(error.message);
+    });
   }
 
 }

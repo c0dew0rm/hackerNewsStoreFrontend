@@ -10,8 +10,8 @@ import { AuthService } from '../auth.service';
 })
 export class LoginComponent implements OnInit {
   portalLoginForm: FormGroup;
-  forgotToggle = false;
-  forgotPasswordForm: FormGroup;
+  signUpToggle = false;
+  signUpForm: FormGroup;
   constructor(private route: Router, private authService: AuthService) { }
 
   ngOnInit(): void {
@@ -24,23 +24,18 @@ export class LoginComponent implements OnInit {
       password: new FormControl(''),
     });
 
-    this.forgotPasswordForm = new FormGroup({
-      email: new FormControl('', [])
+    this.signUpForm = new FormGroup({
+      email: new FormControl('', []),
+      password: new FormControl(''),
     });
   }
 
   onLoginFormSubmit(formValue: FormGroup ) {
     this.authService.signIn(formValue.value.email, formValue.value.password);
-    // localStorage.setItem('userEmail', formValue.value.email);
-    // if(formValue.value.email==='rahul@transpacks.co' && formValue.value.password==='transpacks123') {
-    //   this.route.navigate(['home']);
-    // }
-    // else {
-    //   console.log("Invalid Credentials")
-    // }
   }
 
-  onForgotPasswordFormSubmit(formValue: FormGroup) {
-    console.log("Hie!")
+  onSignUpFormSubmit(formValue: FormGroup) {
+    this.authService.signUp(formValue.value.email, formValue.value.password);
   }
+
 }
