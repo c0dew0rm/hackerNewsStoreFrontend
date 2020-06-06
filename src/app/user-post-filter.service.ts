@@ -19,7 +19,6 @@ export class UserPostFilterService {
       return data;
     }));
     res.pipe().subscribe(data=>{
-      console.log(data);
       data[loggedInUser]['deletedPosts'][post.postId]=true;
       UserData = data
 
@@ -40,7 +39,6 @@ export class UserPostFilterService {
       return data;
     }));
     res.pipe().subscribe(data=>{
-      console.log(data);
       data[loggedInUser]['readPosts'][post.postId]=true;
       UserData = data
 
@@ -48,6 +46,26 @@ export class UserPostFilterService {
         this.afs.collection('UsersInfo').doc('Users').set(UserData,{merge:true});
         alive = false;
         window.alert("Post Read Sucessfully!");
+      }
+    });
+  }
+
+  removeFromReadList(post:any) {
+    let alive = true;
+    let UserData: any;
+    let loggedInUser = localStorage.getItem('email');
+    let res = this.afs.doc('/UsersInfo/Users/').snapshotChanges().pipe(map(action=>{
+      const data = action.payload.data();
+      return data;
+    }));
+    res.pipe().subscribe(data=>{
+      data[loggedInUser]['readPosts'][post.postId]=false;
+      UserData = data
+
+      if(alive === true) {
+        this.afs.collection('UsersInfo').doc('Users').set(UserData,{merge:true});
+        alive = false;
+        window.alert("Unreading Post Sucessful!");
       }
     });
   }
@@ -65,7 +83,7 @@ export class UserPostFilterService {
     return this.afs.doc('/UsersInfo/Users/').snapshotChanges().pipe(map(action=>{
       const data = action.payload.data();
       return data[loggedInUser]['readPosts'];
-    })); 
+    }));
   }
 
 }

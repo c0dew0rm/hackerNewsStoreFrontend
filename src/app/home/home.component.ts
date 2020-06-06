@@ -56,7 +56,7 @@ export class HomeComponent implements OnInit {
   }
 
   markUnread(post:any) {
-    console.log("In mark unread");
+    this.postFilterService.removeFromReadList(post);
   }
 
   getDeletedPostsList() {
@@ -85,7 +85,7 @@ export class HomeComponent implements OnInit {
   }
 
   checkIfRead(postId) {
-    return this.readPostList.hasOwnProperty(postId) ? 'aquamarine' : 'transparent';
+    return this.readPostList.hasOwnProperty(postId) ? (this.readPostList[postId]) ? 'aquamarine':' transparent' : 'transparent';
   }
 
 }
