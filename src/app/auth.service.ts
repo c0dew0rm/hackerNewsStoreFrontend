@@ -26,4 +26,8 @@ export class AuthService {
     })
   }
 
+  loggedIn(): boolean {
+    return (localStorage.getItem('email') !== null);
+  }
+
 }
