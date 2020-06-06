@@ -33,7 +33,15 @@ export class AuthService {
   signUp(email, password) {
     return this.afAuth.createUserWithEmailAndPassword(email, password).then(
       value => {
-        this.router.navigate(['']);
+        const key = email;
+        let currentUser = new Object();
+        currentUser[key] = {}
+        currentUser[key] = {
+          'deletedPosts': [],
+          'password': password,
+          'readPosts': [],
+        }
+        this.afs.collection('UsersInfo').doc('Users').set(currentUser, {merge: true});
         window.alert("Account created Sucessfully!");
       }
     ).catch(error => {
