@@ -21,7 +21,7 @@ export class UserPostFilterService {
     }));
     res.pipe().subscribe(data=>{
       console.log(data);
-      data[loggedInUser]['deletedPosts'].push(post['postId']);
+      data[loggedInUser]['deletedPosts'][post.postId]=true;
       UserData = data
 
       if(alive === true) {
@@ -31,4 +31,13 @@ export class UserPostFilterService {
       }
     });
   }
+
+  getDeletedPosts() {
+    let loggedInUser = localStorage.getItem('email');
+    return this.afs.doc('/UsersInfo/Users/').snapshotChanges().pipe(map(action=>{
+      const data = action.payload.data();
+      return data[loggedInUser]['deletedPosts'];
+    }));
+  }
+
 }

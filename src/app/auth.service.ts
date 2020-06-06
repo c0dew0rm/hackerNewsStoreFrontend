@@ -37,9 +37,9 @@ export class AuthService {
         let currentUser = new Object();
         currentUser[key] = {}
         currentUser[key] = {
-          'deletedPosts': [],
+          'deletedPosts': {},
           'password': password,
-          'readPosts': [],
+          'readPosts': {},
         }
         this.afs.collection('UsersInfo').doc('Users').set(currentUser, {merge: true});
         window.alert("Account created Sucessfully!");

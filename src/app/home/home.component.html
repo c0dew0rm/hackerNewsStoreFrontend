@@ -12,7 +12,7 @@
 <div class="container">
     <div class="row" *ngFor="let post of newsPost">
         <div class="col-md-12">
-            <div class="card">
+            <div class="card" *ngIf="!checkIfDeleted(post.postId)">
                 <div class="card-header">
                     <b>Title: </b>{{post.title}} 
                   </div>

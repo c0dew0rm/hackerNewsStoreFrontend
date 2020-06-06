@@ -10,10 +10,16 @@ import { UserPostFilterService } from '../user-post-filter.service';
   styleUrls: ['./home.component.css']
 })
 export class HomeComponent implements OnInit {
-
+  alive:boolean = true;
   newsPost:any;
+  deletedPostList:any;
 
-  constructor(private postFetchService: NewsFetchService, private authService: AuthService, private route: Router, private postFilterService: UserPostFilterService) {
+  constructor(
+    private postFetchService: NewsFetchService,
+    private authService: AuthService,
+    private postFilterService: UserPostFilterService,
+    private userPostFilterService: UserPostFilterService,
+  ) {
     if (!this.authService.loggedIn()){
       this.authService.signOut();
     }
@@ -23,6 +29,7 @@ export class HomeComponent implements OnInit {
     this.postFetchService.getNewsPosts().subscribe( (res:any) => {
       this.newsPost = res;
     });
+    this.getDeletedList();
   }
 
   onDelete(post:any) {
@@ -48,6 +55,20 @@ export class HomeComponent implements OnInit {
 
   markUnread(post:any) {
     console.log("In mark unread");
+  }
+
+  getDeletedList() {
+    if(this.alive === true) {
+      this.postFilterService.getDeletedPosts().pipe().subscribe( data => {
+        this.deletedPostList = data;
+        // console.log(this.deletedPostList);
+      });
+      this.alive=false;
+    }
+  }
+
+  checkIfDeleted(postId) {
+    return this.deletedPostList.hasOwnProperty(postId) ? true : false;
   }
 
 }
